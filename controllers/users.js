@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 let users = [];
 
 export const getUsers = (req, res) => {
+    console.log(`Users in the database: ${users}`);
+
     res.send(users);
 }
 
@@ -36,12 +38,12 @@ export const updateUser = (req, res) => {
     const { id } = req.params;
     const { firstName, lastName, age, location } = req.body;
 
-    const user = users.find((user) => user.id == id);
+    const user = users.find((user) => user.id == req.params.id);
 
-    if(firstName) user.firstName = firstName;
-    if(lastName) user.lastName = lastName;
-    if(age) user.age = age;
-    if(location) user.location = location;
+    if(firstName) user.firstName = req.body.firstName;
+    if(lastName) user.lastName = req.body.lastName;
+    if(age) user.age = req.body.age;
+    if(location) user.location = req.body.location;
 
     res.send(`User with the id ${id} has been updated`);
     console.log(`User with the id ${id} has been updated`);
